@@ -1,0 +1,785 @@
+/*
+Theme Name: CAFAR Theme
+Theme URI: https://cafar.com.br
+Author: Gabriel Mendonça
+Author URI: https://instagram.com/gabrielms012
+Description: Tema criado para o site do CAFAR
+Version: 1.0
+*/
+
+/* Wordpress admin bar */
+#wpadminbar {
+  display: none;
+}
+
+/* RESET */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* VARIABLES */
+:root {
+  --header-height: 4.5rem;
+
+  /* colors */
+  --hue: 36;
+  /* HSL color mode */
+  --base-color: hsl(var(--hue) 36% 57%);
+  --base-color-second: hsl(var(--hue) 65% 88%);
+  --base-color-alt: hsl(var(--hue) 57% 53%);
+  --title-color: hsl(var(--hue) 41% 10%);
+  --text-color: hsl(0 0% 46%);
+  --text-color-light: hsl(0 0% 98%);
+  --body-color: hsl(0 0% 98%);
+
+  /* FONTS */
+  --title-font-size: 1.875rem;
+  --title-secondary-font-size: 1.5rem;
+  --subtitle-font-size: 1rem;
+
+  --title-font: 'Poppins', sans-serif;
+  --body-font: 'DM Sans', sans-serif;
+}
+
+/* BASE */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font: 400 1rem var(--body-font);
+  color: var(--text-color);
+  background: var(--body-color);
+  -webkit-font-smoothing: antialised;
+}
+
+.title {
+  font: 700 var(--title-font-size) var(--title-font);
+  color: var(--title-color);
+  -webkit-font-smoothing: auto;
+}
+
+.button {
+  background-color: var(--base-color);
+  color: var(--text-color-light);
+  height: 3.5rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2rem;
+  border-radius: 0.25rem;
+  font: 500 1rem var(--body-font);
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background: var(--base-color-alt);
+}
+
+.divider-1 {
+  height: 1px;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 36%, 57%, 1) 0%,
+    hsla(var(--hue), 65%, 88%, 0.34) 100%
+  );
+}
+
+.divider-2 {
+  height: 1px;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 65%, 88%, 0.34),
+    hsla(var(--hue), 36%, 57%, 1)
+  );
+}
+
+/* LAYOUT */
+.container {
+  /* Poderia ser 0 auto */
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.section {
+  padding: calc(5rem + var(--header-height)) 0;
+}
+
+.section .title {
+  margin-bottom: 1rem;
+}
+
+.section .subtitle {
+  font-size: var(--subtitle-font-size);
+}
+
+.section header {
+  margin-bottom: 4rem;
+}
+.section header strong {
+  color: var(--base-color);
+}
+
+#header {
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 2rem;
+  display: flex;
+
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: var(--body-color);
+}
+
+#header.scroll {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+/* NAVIGATION */
+nav {
+  /* 16px é o tamanho base de fonte do navegador * 4.5 que vai ser igual a 72px no figma */
+  height: var(--header-height);
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+nav .menu {
+  opacity: 0;
+  visibility: hidden;
+  top: -20rem;
+  transition: 0.2s;
+}
+
+nav .menu ul {
+  display: none;
+}
+
+nav .menu ul li a.title {
+  font-size: 1.5rem;
+}
+
+nav ul li {
+  text-align: center;
+}
+
+nav ul li a {
+  transition: color 0.2s;
+  position: relative;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: var(--base-color);
+}
+
+nav ul li a::after {
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: var(--base-color);
+
+  position: absolute;
+  left: 0;
+  bottom: -1.5rem;
+
+  transition: width 0.2s;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+  width: 100%;
+}
+
+/* MOSTRAR MENU */
+nav.show .menu {
+  opacity: 1;
+  visibility: visible;
+
+  background: var(--body-color);
+  height: 100vh;
+  width: 100vw;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: grid;
+  place-content: center;
+}
+
+nav.show .menu ul {
+  display: grid;
+}
+
+nav.show ul.grid {
+  gap: 4rem;
+}
+
+/* TOGGLE MENU */
+.toggle {
+  color: var(--base-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+nav .icon-close {
+  visibility: hidden;
+  opacity: 0;
+
+  position: absolute;
+  top: -1.5rem;
+  right: 1.5rem;
+
+  transition: 0.2s;
+}
+
+nav.show div.icon-close {
+  visibility: visible;
+  opacity: 1;
+  top: 1.5rem;
+}
+
+/* LOGO */
+.logo {
+  font: 700 1rem var(--body-font);
+  color: var(--title-color);
+}
+
+.logo span {
+  color: var(--base-color);
+}
+
+.imgindex {
+  width: 10.5rem;
+  margin-top: 0.5rem;
+}
+
+/* HOME */
+#home {
+  overflow: hidden;
+}
+
+#home .container {
+  margin: 0;
+}
+
+#home .image {
+  position: relative;
+  margin-left: 4.5%;
+}
+
+#home .image img,
+#home .image::before {
+  border-radius: 0.25rem;
+}
+
+#home .image::before {
+  content: '';
+  height: 80%;
+  width: 100%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -16.8%;
+  left: 16.7%;
+  z-index: 0;
+}
+
+#home .image img {
+  position: relative;
+  right: 2.93rem;
+}
+
+#home .text {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  text-align: center;
+}
+
+#home .text h1 {
+  margin-bottom: 1rem;
+}
+
+#home .text p {
+  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+img.artcafar {
+  width: 100%;
+  height: auto;
+
+  /* DETERMINA O TAMANHO DA IMAGEM PARA O ESPECIFICADO SEMPRE */
+  object-fit: cover;
+  margin-left: 2rem;
+}
+
+#home input.submit {
+  width: 80%;
+}
+
+#home input {
+  width: 90%;
+  display: block;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.5rem;
+}
+
+input.button {
+  border: 0;
+  cursor: pointer;
+  width: 30%;
+}
+
+#home .formulario {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid var(--base-color);
+  background: var(--base-color-second);
+  padding: 1rem;
+}
+
+#home input.button {
+  margin-top: 1rem;
+}
+
+/* ABOUT */
+img.paredecafar {
+  width: 90%;
+  margin-left: 5%;
+}
+
+#about {
+  background: white;
+}
+
+#about .container {
+  margin: 0;
+}
+
+#about .image img,
+#about .image::before {
+  border-radius: 0.25rem;
+}
+
+#about .image::before {
+  content: '';
+  height: 80%;
+  width: 100%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -10.3%;
+  left: -17%;
+  z-index: 0;
+}
+
+#about .image img {
+  position: relative;
+}
+
+#about .text {
+  margin: 0 1.5rem;
+}
+
+#about .button i {
+  font-size: 1.5rem;
+  margin-right: 0.625rem;
+}
+
+#about .button {
+  margin-top: 2rem;
+}
+
+/* SLACK */
+#slack img {
+  width: 60%;
+  margin-left: 20%;
+  margin-bottom: 20%;
+}
+
+#slack .button i {
+  font-size: 1.5rem;
+  margin-right: 0.625rem;
+}
+
+#slack .button {
+  margin-top: 2rem;
+}
+
+/* PARCEIROS */
+#partners {
+  background: white;
+}
+
+i > img {
+  /* width: 10rem; */
+  clip-path: circle();
+  width: 10rem;
+}
+
+.cards.grid {
+  gap: 1.5rem;
+}
+
+.card {
+  padding: 3.625rem 2rem;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+  border-bottom: 0.25rem solid var(--base-color);
+  border-radius: 0.25rem 0.25rem 0 0;
+  text-align: center;
+}
+
+.card i {
+  display: block;
+  /* margin-bottom: 1.5rem; */
+  font-size: 5rem;
+}
+
+.card .title {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* GUIA DO CALOURO */
+#guide .button i {
+  font-size: 1.5rem;
+  margin-right: 0.625rem;
+}
+
+#guide .button {
+  margin-top: 2rem;
+}
+
+/* PARTNERS */
+#partners .button {
+  margin-top: 1rem;
+}
+
+/* CONTACT */
+#contact {
+  background: white;
+}
+
+#contact .grid {
+  gap: 4rem;
+}
+
+#contact .text p {
+  margin-bottom: 2rem;
+}
+
+#contact .button i {
+  margin-top: 0.3rem;
+}
+
+#contact .button i,
+#contact ul li i {
+  font-size: 1.5rem;
+  margin-right: 0.625rem;
+}
+
+#contact ul.grid {
+  gap: 2rem;
+}
+
+#contact ul li {
+  display: flex;
+  align-items: center;
+}
+
+#contact ul li i {
+  color: var(--base-color);
+}
+
+#contact .map {
+  border: 1px solid var(--base-color);
+  margin-top: -3rem;
+  width: 20rem;
+  height: 20rem;
+  padding: 0.2rem;
+}
+
+/* FOOTER */
+footer {
+  background: var(--base-color);
+}
+
+footer.section {
+  padding: 4rem 0;
+}
+
+footer .logo {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-size: 1.31rem;
+}
+
+footer .brand p {
+  margin-bottom: 0.75rem;
+  color: var(--text-color-light);
+}
+
+footer i {
+  font-size: 1.5rem;
+  color: var(--text-color-light);
+}
+
+footer .social {
+  grid-auto-flow: column;
+  width: fit-content;
+}
+
+footer .social a {
+  /* margin-right: 2rem; */
+  transition: 0.3s;
+  display: inline-block;
+}
+
+footer .social a:hover {
+  transform: translateY(-8px);
+}
+
+/* BACK TO TOP */
+.back-to-top {
+  background: var(--base-color);
+  color: var(--text-color-light);
+
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+
+  padding: 0.5rem;
+  clip-path: circle();
+
+  font-size: 1.5rem;
+  line-height: 0;
+
+  visibility: hidden;
+  opacity: 0;
+
+  transition: 0.3s;
+  transform: translateY(100%);
+}
+
+.back-to-top.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ESTATUTO */
+#statute p {
+  margin-bottom: 1rem;
+}
+
+#statute .title-secondary {
+  font-size: var(--title-secondary-font-size);
+  color: var(--title-color);
+}
+
+#statute .title-chapter {
+  margin-top: 2rem;
+}
+
+#statute .post-title {
+  margin-top: 1rem;
+}
+
+/* RESPONSIVO */
+/* EXTRA LARGE DEVICES: 1200 > */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section {
+    padding: 10rem 0;
+  }
+
+  .section header {
+    max-width: 32rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* PARTNERS */
+  /* .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  } */
+
+  .card {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    width: 33%;
+    margin-left: 33%;
+  }
+
+  /* CONTACT */
+  #contact .container {
+    grid-auto-flow: column;
+    align-items: center;
+  }
+
+  #contact .text {
+    max-width: 25rem;
+  }
+
+  footer .container {
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* FOOTER */
+  footer.section {
+    padding: 3.75rem 0;
+  }
+
+  .button {
+    height: 3.125rem;
+  }
+
+  nav .menu {
+    opacity: 1;
+    visibility: visible;
+    top: 0;
+  }
+
+  nav .menu ul {
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav .menu ul li a.title {
+    font: 400 1rem var(--body-font);
+    -webkit-font-smoothing: antialised;
+  }
+
+  nav .menu ul li a.title.active {
+    font-weight: bold;
+    -webkit-font-smoothing: auto;
+  }
+
+  nav .icon-menu {
+    display: none;
+  }
+
+  /* HOME */
+  #home .container {
+    grid-auto-flow: column;
+    /* width: fit-content; */
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  #home .image {
+    order: 1;
+  }
+
+  #home .text {
+    order: 0;
+    max-width: 24rem;
+    text-align: left;
+  }
+
+  #home h2.title {
+    margin-top: -3rem;
+  }
+
+  #home .formulario {
+    width: 90%;
+    margin: 0 auto;
+    margin-right: 10rem;
+  }
+
+  #home .formulario .input {
+    width: 80%;
+  }
+
+  main {
+    margin-top: var(--header-height);
+  }
+
+  /* ABOUT */
+  #about .container {
+    margin: 0 auto;
+    grid-auto-flow: column;
+  }
+
+  #about .image {
+    margin-left: 0;
+  }
+
+  /* SLACK */
+  #slack .container {
+    grid-auto-flow: column;
+    /* width: fit-content; */
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  #slack .image {
+    order: 1;
+  }
+
+  #slack .text {
+    order: 0;
+    max-width: 24rem;
+    text-align: left;
+  }
+
+  #slack h2.title {
+    margin-top: -3rem;
+  }
+
+  #slack img {
+    margin-left: 40%;
+    margin-bottom: 0;
+  }
+}
+/* LARGE DEVICES: 1023 > */
+/* LARGE DEVICES: 992 > */
+@media (min-width: 992px) {
+  :root {
+    --title-font-size: 2.25rem;
+    --title-secondary-font-size: 1.75rem;
+    --subtitle-font-size: 1.125rem;
+  }
+
+  img.artcafar {
+    margin-left: 0;
+  }
+
+  img.paredecafar {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  #home input.submit {
+    width: 70%;
+  }
+}
+/* MEDIUM DEVICES: 767 > */
